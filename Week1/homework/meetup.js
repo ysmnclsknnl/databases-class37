@@ -7,12 +7,12 @@ const connection = mysql.createConnection({
 });
 
 const execute_queries = (arrayOfQueries) => {
-  for (let i in arrayOfQueries) {
-    connection.query(arrayOfQueries[i], (error, result) => {
+  arrayOfQueries.forEach((query) => {
+    connection.query(query, (error, result) => {
       if (error) throw error;
       console.log("the result is ", result);
     });
-  }
+  });
 };
 
 connection.connect();
