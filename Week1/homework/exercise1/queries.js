@@ -2,7 +2,7 @@ const sql_queries = [
   "DROP DATABASE IF EXISTS meetup",
   "CREATE DATABASE meetup",
   "USE meetup",
-  "CREATE TABLE Invitee (invitee_no INT PRIMARY KEY AUTO_INCREMENT, invitee_name VARCHAR(100) UNIQUE, invited_by VARCHAR(100))",
+  "CREATE TABLE Invitee (invitee_no INT PRIMARY KEY AUTO_INCREMENT, invitee_name VARCHAR(100) UNIQUE NOT NULL, invited_by VARCHAR(100))",
   "CREATE TABLE Room (room_no INT PRIMARY KEY AUTO_INCREMENT NOT NULL, room_name VARCHAR(100) UNIQUE NOT NULL, floor_number INT NOT NULL)",
   "CREATE TABLE Meeting (meeting_no INT PRIMARY KEY AUTO_INCREMENT NOT NULL, meeting_title VARCHAR(100) UNIQUE NOT NULL, starting_time DATETIME NOT NULL,ending_time DATETIME NOT NULL, room_no INT, FOREIGN KEY(room_no) REFERENCES Room(room_no))",
   "INSERT INTO Invitee(invitee_name,invited_by)VALUES('Yasemin Caliskan','Gunay Caliskan'),('Harun Caliskan','Cristiano Ronaldo'),('John Doe','Fede Fusco'),('Natalie Ducas','Melih Kibar'),('Roberto Carlos','Lionel Messi')",
