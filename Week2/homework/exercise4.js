@@ -6,4 +6,4 @@ const exercise4_queries = {
   minMaxHIndexPerUni: `SELECT MIN(h_index), MAX(h_index), university FROM authors GROUP BY university`,
 };
 
-module.exports = exercise4_queries;
+export default exercise4_queries;

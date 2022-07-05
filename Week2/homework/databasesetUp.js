@@ -3,4 +3,4 @@ const createDataBase_query = {
   useDatabase: "USE publications",
 };
 
-module.exports = createDataBase_query;
+export default createDataBase_query;

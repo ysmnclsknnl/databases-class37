@@ -13,4 +13,4 @@ const exercise1_queries = {
   ],
 };
 
-module.exports = exercise1_queries;
+export default exercise1_queries;

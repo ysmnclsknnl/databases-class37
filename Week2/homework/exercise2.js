@@ -35,4 +35,4 @@ const exercise2_queries = {
   insertAuthorPaperTable: `INSERT INTO author_research_Papers(author_no,paper_id) VALUES(1,1),(1,2),(1,21),(2,1),(3,3),(3,19),(3,20),(4,3),(4,19),(5,5),(5,6),(5,7),(5,10),(5,23),(6,8),(6,9),(6,22),(6,29),(7,5),(7,6),(8,11),(8,12),(8,13),(8,28),(9,15),(9,16),(9,26),(10,11),(10,28),(11,14),(12,14),(13,17),(13,18),(13,27),(14,17),(14,18),(15,8),(15,29)`,
 };
 
-module.exports = exercise2_queries;
+export default exercise2_queries;
