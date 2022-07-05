@@ -1,6 +1,7 @@
-const createTableResearchPapers = `CREATE TABLE IF NOT EXISTS research_Papers (paper_id INT PRIMARY KEY, paper_title VARCHAR(200) NOT NULL UNIQUE, conference VARCHAR(150), publish_date DATETIME)`;
-const createTableAuthorResearchPapers = `CREATE TABLE IF NOT EXISTS author_research_Papers (author_no int , paper_id int , FOREIGN KEY (author_no) REFERENCES authors(author_no),FOREIGN KEY(paper_id) REFERENCES research_Papers(paper_id),PRIMARY KEY(author_no,paper_id))`;
-const insertResearchPaper = `INSERT INTO research_papers (paper_id,paper_title,conference,publish_date) VALUES (1,"Effects of video podcast technology on peer learning andproject quality ",'international symposium on educational sciences ','2010-11-20'),
+const exercise2_queries = {
+  createTableResearchPapers: `CREATE TABLE IF NOT EXISTS research_Papers (paper_id INT PRIMARY KEY, paper_title VARCHAR(200) NOT NULL UNIQUE, conference VARCHAR(150), publish_date DATETIME)`,
+  createTableAuthorResearchPapers: `CREATE TABLE IF NOT EXISTS author_research_Papers (author_no int , paper_id int , FOREIGN KEY (author_no) REFERENCES authors(author_no),FOREIGN KEY(paper_id) REFERENCES research_Papers(paper_id),PRIMARY KEY(author_no,paper_id))`,
+  addResearchPaper: `INSERT INTO research_papers (paper_id,paper_title,conference,publish_date) VALUES (1,"Effects of video podcast technology on peer learning andproject quality ",'international symposium on educational sciences ','2010-11-20'),
 (2,"Gamification in learning ",'international Symposium On Educational Sciences ','2011-11-20'),
 (3,"Human Computer Interaction",'international Symposium On Educational Technology ','2012-11-24'),
 (4,"Lifetime prevalence and age-of-onset distributions of DSM-IV disorders in the National Comorbidity Survey Replication",'International Symposium On Medicine ','2005-10-15'),
@@ -30,6 +31,8 @@ const insertResearchPaper = `INSERT INTO research_papers (paper_id,paper_title,c
 (28,"Body weight and mortality among women",'National Symposium on Obesity','1995-08-03'),
 (29,"Obesity",'National Symposium On Medicine','2010-03-03'),
 (30,"Using Agents in Courseware",'international Symposium On Educational Technology ','2015-11-24')
-`;
+`,
+  insertAuthorPaperTable: `INSERT INTO author_research_Papers(author_no,paper_id) VALUES(1,1),(1,2),(1,21),(2,1),(3,3),(3,19),(3,20),(4,3),(4,19),(5,5),(5,6),(5,7),(5,10),(5,23),(6,8),(6,9),(6,22),(6,29),(7,5),(7,6),(8,11),(8,12),(8,13),(8,28),(9,15),(9,16),(9,26),(10,11),(10,28),(11,14),(12,14),(13,17),(13,18),(13,27),(14,17),(14,18),(15,8),(15,29)`,
+};
 
-const insertAuthorPaperTable = `INSERT INTO author_research_Papers(author_no,paper_id) VALUES(1,1),(1,2),(1,21),(2,1),(3,3),(3,19),(3,20),(4,3),(4,19),(5,5),(5,6),(5,7),(5,10),(5,23),(6,8),(6,9),(6,22),(6,29),(7,5),(7,6),(8,11),(8,12),(8,13),(8,28),(9,15),(9,16),(9,26),(10,11),(10,28),(11,14),(12,14),(13,17),(13,18),(13,27),(14,17),(14,18),(15,8),(15,29)`;
+module.exports = exercise2_queries;
