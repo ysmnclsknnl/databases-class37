@@ -14,24 +14,24 @@ const pool = mysql
   .promise();
 
 async function execute_query(sql_query) {
-  const [results] = await pool.query(sql_query);
-  console.table(results);
-}
-
-async function execute_queries(queries) {
   try {
-    for (const item in queries) {
-      if (Array.isArray(queries[item])) {
-        for (const sql_query of queries[item]) {
-          await execute_query(sql_query);
-        }
-      } else {
-        await execute_query(queries[item]);
-      }
-    }
+    const [results] = await pool.query(sql_query);
+    console.table(results);
   } catch (err) {
     pool.end();
     throw err;
+  }
+}
+
+async function execute_queries(queries) {
+  for (const item in queries) {
+    if (Array.isArray(queries[item])) {
+      for (const sql_query of queries[item]) {
+        await execute_query(sql_query);
+      }
+    } else {
+      await execute_query(queries[item]);
+    }
   }
 }
 
@@ -45,7 +45,6 @@ async function main() {
     pool.end();
   } catch (err) {
     console.error(err);
-    pool.end();
   }
 }
 main();
