@@ -1,5 +1,6 @@
 const exercise2_queries = {
-  createTableResearchPapers: `CREATE TABLE IF NOT EXISTS research_Papers (paper_id INT PRIMARY KEY, paper_title VARCHAR(200) NOT NULL UNIQUE, conference VARCHAR(150), publish_date DATETIME)`,
+  createTableResearchPapers: `CREATE TABLE IF NOT EXISTS research_Papers (paper_id INT PRIMARY KEY, paper_title VARCHAR(200) NOT NULL UNIQUE,
+   conference VARCHAR(150) NOT NULL, publish_date DATETIME NOT NULL)`,
   createTableAuthorResearchPapers: `CREATE TABLE IF NOT EXISTS author_research_Papers (author_no int , paper_id int , FOREIGN KEY (author_no) REFERENCES authors(author_no),FOREIGN KEY(paper_id) REFERENCES research_Papers(paper_id),PRIMARY KEY(author_no,paper_id))`,
   addResearchPaper: `INSERT INTO research_papers (paper_id,paper_title,conference,publish_date) VALUES (1,"Effects of video podcast technology on peer learning andproject quality ",'international symposium on educational sciences ','2010-11-20'),
 (2,"Gamification in learning ",'international Symposium On Educational Sciences ','2011-11-20'),
