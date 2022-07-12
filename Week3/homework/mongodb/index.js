@@ -72,11 +72,11 @@ async function findEpisodesExercises(client) {
     .collection("bob_ross_episodes")
     .find({ elements: "CLIFF" });
 
-  const episodesIncCLIFF = await cursor.toArray();
-  episodesIncCLIFF.forEach((eps) => console.log(eps.title));
+  const result = await cursor.toArray();
+  const episodesIncCLIFF = result.map((eps) => eps.title).toString();
 
   console.log(
-    `The episodes that Bob Ross painted a CLIFF are ${episodesIncCLIFF.length}`
+    `The episodes that Bob Ross painted a CLIFF are ${episodesIncCLIFF}`
   );
 
   // Find all of the episode titles where Bob Ross painted a CLIFF and a LIGHTHOUSE [Should be: NIGHT LIGHT]
@@ -86,11 +86,13 @@ async function findEpisodesExercises(client) {
     .collection("bob_ross_episodes")
     .find({ elements: { $all: ["CLIFF", "LIGHTHOUSE"] } });
 
-  const episodesIncCliffandLightHouse = await cursor2.toArray();
-  episodesIncCliffandLightHouse.forEach((eps) => console.log(eps.title));
+  const result2 = await cursor2.toArray();
+  const episodesIncCliffandLightHouse = result2
+    .map((eps) => eps.title)
+    .toString();
 
   console.log(
-    `The episodes that Bob Ross painted a CLIFF and a LIGHTHOUSE are ${episodesIncCliffandLightHouse.length}`
+    `The episodes that Bob Ross painted a CLIFF and a LIGHTHOUSE are ${episodesIncCliffandLightHouse}`
   );
 }
 
@@ -159,7 +161,6 @@ async function main() {
     useUnifiedTopology: true,
     serverApi: ServerApiVersion.v1,
   });
-
   try {
     await client.connect();
 
