@@ -3,6 +3,16 @@ require("dotenv").config();
 
 const { seedDatabase } = require("./seedDatabase.js");
 
+/**
+ * We forgot to add the last episode of season 9. It has this information:
+ *
+ * episode: S09E13
+ * title: MOUNTAIN HIDE-AWAY
+ * elements: ["CIRRUS", "CLOUDS", "CONIFER", "DECIDIOUS", "GRASS", "MOUNTAIN", "MOUNTAINS", "RIVER", "SNOWY_MOUNTAIN", "TREE", "TREES"]
+ */
+
+// Write code that will add this to the collection!
+
 async function createEpisodeExercise(client) {
   const result = await client
     .db()
@@ -25,16 +35,6 @@ async function createEpisodeExercise(client) {
       ],
     });
 
-  /**
-   * We forgot to add the last episode of season 9. It has this information:
-   *
-   * episode: S09E13
-   * title: MOUNTAIN HIDE-AWAY
-   * elements: ["CIRRUS", "CLOUDS", "CONIFER", "DECIDIOUS", "GRASS", "MOUNTAIN", "MOUNTAINS", "RIVER", "SNOWY_MOUNTAIN", "TREE", "TREES"]
-   */
-
-  // Write code that will add this to the collection!
-
   console.log(
     `Created season 9 episode 13 and the document got the id ${result.insertedId}`
   );
@@ -47,6 +47,7 @@ async function findEpisodesExercises(client) {
    */
 
   // Find the title of episode 2 in season 2 [Should be: WINTER SUN]
+
   const { title } = await client
     .db()
     .collection("bob_ross_episodes")
@@ -54,6 +55,7 @@ async function findEpisodesExercises(client) {
   console.log(`The title of episode 2 in season 2 is ${title}`);
 
   // Find the season and episode number of the episode called "BLACK RIVER" [Should be: S02E06]
+
   const { episode } = await client
     .db()
     .collection("bob_ross_episodes")
@@ -65,30 +67,30 @@ async function findEpisodesExercises(client) {
 
   // Find all of the episode titles where Bob Ross painted a CLIFF [Should be: NIGHT LIGHT, EVENING SEASCAPE, SURF'S UP, CLIFFSIDE, BY THE SEA, DEEP WILDERNESS HOME, CRIMSON TIDE, GRACEFUL WATERFALL]
 
-  let cursor = client
+  const cursor = client
     .db()
     .collection("bob_ross_episodes")
     .find({ elements: "CLIFF" });
 
-  let results = await cursor.toArray();
-  results.forEach((result) => console.log(result.title));
+  const episodesIncCLIFF = await cursor.toArray();
+  episodesIncCLIFF.forEach((eps) => console.log(eps.title));
 
   console.log(
-    `The episodes that Bob Ross painted a CLIFF are ${results.length}`
+    `The episodes that Bob Ross painted a CLIFF are ${episodesIncCLIFF.length}`
   );
 
   // Find all of the episode titles where Bob Ross painted a CLIFF and a LIGHTHOUSE [Should be: NIGHT LIGHT]
 
-  cursor = await client
+  const cursor2 = await client
     .db()
     .collection("bob_ross_episodes")
     .find({ elements: { $all: ["CLIFF", "LIGHTHOUSE"] } });
 
-  results = await cursor.toArray();
-  results.forEach((result) => console.log(result.title));
+  const episodesIncCliffandLightHouse = await cursor2.toArray();
+  episodesIncCliffandLightHouse.forEach((eps) => console.log(eps.title));
 
   console.log(
-    `The episodes that Bob Ross painted a CLIFF and a LIGHTHOUSE are ${results.length}`
+    `The episodes that Bob Ross painted a CLIFF and a LIGHTHOUSE are ${episodesIncCliffandLightHouse.length}`
   );
 }
 
@@ -106,7 +108,7 @@ async function updateEpisodeExercises(client) {
     .collection("bob_ross_episodes")
     .updateOne(
       { title: "BLUE RIDGE FALLERS" },
-      { $set: { name: "BLUE RIDGE FALLS" } }
+      { $set: { title: "BLUE RIDGE FALLS" } }
     );
 
   console.log(
@@ -117,13 +119,17 @@ async function updateEpisodeExercises(client) {
   // Update all of the documents in the collection that have `BUSHES` in the elements array to now have `BUSH`
   // It should update 120 episodes!
 
-  // const results = client
-  //   .db()
-  //   .collection("bob_ross_episodes")
-  //   .updateMany({ elements: "BUSHES" }, { $set: { element } });
+  const results = await client
+    .db()
+    .collection("bob_ross_episodes")
+    .updateMany(
+      { elements: "BUSHES" },
+      { $set: { "elements.$[elemX]": "BUSH" } },
+      { arrayFilters: [{ elemX: "BUSHES" }] }
+    );
 
   console.log(
-    `Ran a command to update all the BUSHES to BUSH and it updated ${"TODO: fill in variable here"} episodes`
+    `Ran a command to update all the BUSHES to BUSH and it updated ${results.modifiedCount} episodes`
   );
 }
 
