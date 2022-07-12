@@ -19,7 +19,6 @@ async function main() {
   connection.connect();
   try {
     await execQuery(createDataBase_query);
-    console.log("executed");
 
     create_tables.forEach(async (sql_query) => await execQuery(sql_query));
 
@@ -33,9 +32,8 @@ async function main() {
   } catch (err) {
     console.error(err);
     await execQuery("ROLLBACK");
+  } finally {
     connection.end();
   }
-
-  connection.end();
 }
 main();
