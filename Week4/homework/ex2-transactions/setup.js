@@ -9,7 +9,7 @@ const seedDatabase = async (client) => {
   if (!hasCollection) {
     await client
       .db("databaseWeek4")
-      .createCollection("accounts", function (err, res) {
+      .createCollection("accounts", (err, res) => {
         if (err) throw err;
         console.log("Collection created!");
       });
