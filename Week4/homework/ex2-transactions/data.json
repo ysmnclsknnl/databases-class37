@@ -1,11 +1,11 @@
 [{"account_number":100,
-"balance":17899900,
+"balance":100000,
 "account_changes":[{"change_number":123,"amount":200,"changed_date":"2022-24-12 12:00:00","remark":"tax"}]},
 {"account_number":101,
     "balance":1000,
     "account_changes":[{"change_number":123,"amount":200,"changed_date":"2022-24-12 12:00:00","remark":"tax"}]
 },
 {"account_number":102,
-    "balance":178900,
-    "account_changes":[{"change_number":123,"amount":200,"changed_date":"2022-24-12 12:00:00","remark":"tax"}]}
+    "balance":200,
+    "account_changes":[{"change_number":124,"amount":200,"changed_date":"2022-24-12 12:00:00","remark":"rent"}]}
 ]
