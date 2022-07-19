@@ -1,6 +1,9 @@
+const { v4: uuidv4 } = require("uuid");
 const { MongoClient, ServerApiVersion } = require("mongodb");
-const dotenv = require("dotenv");
+const { transferCredits } = require("./transaction.js");
 const { seedDatabase } = require("./setup.js");
+const dotenv = require("dotenv");
+
 dotenv.config();
 
 async function main() {
@@ -18,7 +21,22 @@ async function main() {
   try {
     await client.connect();
 
+    //Create database and insert documents
+
     await seedDatabase(client);
+
+    //Create a unique change number and transfer credits
+    const change_number = uuidv4();
+
+    await transferCredits(
+      client,
+      change_number,
+      101,
+      102,
+      1000,
+      "2022-10-12",
+      "education fee"
+    );
   } catch (err) {
     console.error(err);
   } finally {

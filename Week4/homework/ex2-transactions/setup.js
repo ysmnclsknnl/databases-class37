@@ -19,7 +19,7 @@ const seedDatabase = async (client) => {
     .db("databaseWeek4")
     .collection("accounts");
 
-  // Remove all the documents
+  // In scope of this project remove all the documents to make work with the same documents everytime
   await accountsCollection.deleteMany({});
 
   // Add our documents
