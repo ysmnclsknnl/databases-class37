@@ -1,7 +1,7 @@
-const getAccountChanges = (change_id, amount, date, remark) => {
+const createTransferDocuments = (change_id, amount, date, remark) => {
   const remitterAccountChanges = {
     change_number: change_id,
-    amount: amount * -1,
+    amount: -amount,
     changed_date: date,
     remark: remark,
   };
@@ -15,4 +15,15 @@ const getAccountChanges = (change_id, amount, date, remark) => {
   return { remitteeAccountChanges, remitterAccountChanges };
 };
 
-module.exports = { getAccountChanges };
+const hasEnoughBalance = async (
+  client,
+  remitterAccountId,
+  amountToTransfer
+) => {
+  const remitterAccountDetails = await client
+    .db("databaseWeek4")
+    .collection("accounts")
+    .findOne({ account_number: remitterAccountId });
+  return remitterAccountDetails.balance >= amountToTransfer;
+};
+module.exports = { createTransferDocuments, hasEnoughBalance };
