@@ -39,16 +39,32 @@ async function getTotalPopulationForAnAgeRangeandAYear(client, ageRange, year) {
       $match: {
         Year: year,
         Age: ageRange,
+        Country: {
+          $in: [
+            "AFRICA",
+            "ASIA",
+            "EUROPE",
+            "LATIN AMERICA AND THE CARIBBEAN",
+            "NORTHERN AMERICA",
+            "OCEANIA",
+          ],
+        },
       },
     },
     {
       $addFields: {
         TotalPopulation: {
-          $sum: ["$F", "$M"],
+          $sum: ["$M", "$F"],
         },
       },
     },
+    {
+      $sort: {
+        Country: 1,
+      },
+    },
   ];
+
   const aggCursor = client
     .db("databaseWeek4")
     .collection("population_pyramid")
